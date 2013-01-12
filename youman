@@ -1,0 +1,35 @@
+#!/bin/bash 
+
+echo
+echo 'Hello funks!'
+echo 'Welcome to a basic bash script to improve your workflow in web development.'
+echo
+echo '                              ****' 
+
+if [ $# = 0 ]; then
+	echo "Possible functions are:"
+	echo
+	echo "      init 	Initializes a folder with the content based on a template."
+	echo "    config	Choose some funky modifications."
+	echo "     build	Starts default browser from local project"
+
+else
+	if [ $1 = 'init' ]; then 
+		echo 'Choose your initial template:'
+		echo '1) Basic HTML+CSS'
+		echo '2) Twitter Bootstrap /* NOT YET */'
+		echo '3) Submit your custom build /* NOT YET */'
+		echo
+		read -p 'Option: ' option
+
+		case $option in
+			1)	echo "Basic HTML+CSS"
+				;;
+			*)	echo "Not implemented yet."
+				;;
+		esac
+	else
+		echo 'Introduce a valid argument:'
+		echo 'init, config, build.'
+	fi 
+fi
