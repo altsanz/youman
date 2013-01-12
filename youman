@@ -1,35 +1,63 @@
 #!/bin/bash 
 
-echo
-echo 'Hello funks!'
-echo 'Welcome to a basic bash script to improve your workflow in web development.'
-echo
-echo '                              ****' 
+function banner {
+	echo
+	echo "Hello funks!"
+	echo "Welcome to a basic bash script to improve your workflow in web development."
+	echo 
+	echo "Made by *PERSONAL IDENTITY CRISIS* "
+	echo
+	echo "                              ****"
+	echo
+}
 
-if [ $# = 0 ]; then
-	echo "Possible functions are:"
+function basic {
+	echo "Inside the function"
+}
+
+function possibleActions {
+	echo "Possible actions are:"
+	echo
+	echo "   install	Installs YouMan and makes it available from anywhere."
 	echo
 	echo "      init 	Initializes a folder with the content based on a template."
 	echo "    config	Choose some funky modifications."
 	echo "     build	Starts default browser from local project"
+	echo
+}
 
+banner	# Show intro banner
+
+if [ $# = 0 ]; then
+	possibleActions
 else
-	if [ $1 = 'init' ]; then 
-		echo 'Choose your initial template:'
-		echo '1) Basic HTML+CSS'
-		echo '2) Twitter Bootstrap /* NOT YET */'
-		echo '3) Submit your custom build /* NOT YET */'
-		echo
-		read -p 'Option: ' option
+	case $1 in
+		"init") 
+			echo "Choose your initial template:"
+			echo "1) Basic HTML+CSS"
+			echo "2) Twitter Bootstrap /* NOT YET */"
+			echo "3) Submit your custom build /* NOT YET */"
+			echo
+			read -p "Option: " option 	# Prompts for user selection
 
-		case $option in
-			1)	echo "Basic HTML+CSS"
-				;;
-			*)	echo "Not implemented yet."
-				;;
-		esac
-	else
-		echo 'Introduce a valid argument:'
-		echo 'init, config, build.'
-	fi 
+			case $option in
+				1)	echo "Basic HTML+CSS"
+					basic
+					;;
+				*)	echo "Not implemented yet."
+					;;
+			esac
+			;;
+		"install")
+			echo "Install feature selected"
+			# TODO Copy itself to /bin/
+			# TODO Create folder /etc/youman
+			# TODO Store inside .conf files, templates, and other stuff needed
+			;;
+		*)
+			echo "Introduced action not valid!"
+			echo
+			possibleActions
+			;;
+	esac
 fi
