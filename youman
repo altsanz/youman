@@ -2,7 +2,7 @@
 
 function banner {
 	echo
-	echo "Hello funks!"
+	echo "You, man!"
 	echo "Welcome to a basic bash script to improve your workflow in web development."
 	echo 
 	echo "Made by *PERSONAL IDENTITY CRISIS* "
@@ -28,36 +28,43 @@ function possibleActions {
 
 banner	# Show intro banner
 
-if [ $# = 0 ]; then
-	possibleActions
-else
-	case $1 in
-		"init") 
-			echo "Choose your initial template:"
-			echo "1) Basic HTML+CSS"
-			echo "2) Twitter Bootstrap /* NOT YET */"
-			echo "3) Submit your custom build /* NOT YET */"
-			echo
-			read -p "Option: " option 	# Prompts for user selection
+if [ ! -f /bin/youman ] && [ $1 != "install" ]; then	# Checks if YouMan is already installed
+	echo "YouMan needs to be installed before any action."
+	echo "Run \"youman install\" instead."
 
-			case $option in
-				1)	echo "Basic HTML+CSS"
-					basic
-					;;
-				*)	echo "Not implemented yet."
-					;;
-			esac
-			;;
-		"install")
-			echo "Install feature selected"
-			# TODO Copy itself to /bin/
-			# TODO Create folder /etc/youman
-			# TODO Store inside .conf files, templates, and other stuff needed
-			;;
-		*)
-			echo "Introduced action not valid!"
-			echo
-			possibleActions
-			;;
-	esac
+else
+	if [ $# = 0 ]; then
+		possibleActions
+	else
+		case $1 in
+			"init") 
+				possibleActions
+				read -p "Option: " option 	# Prompts for user selection
+
+				case $option in
+					1)	echo "Basic HTML+CSS"
+						# TODO Copy dir structure from /etc/youman/templates/basic to ./
+						basic
+						;;
+					*)	echo "Not implemented yet."
+						;;
+				esac
+				;;
+
+			"install")
+				echo "Install feature selected"
+
+				# TODO Copy itself to /bin/
+				# TODO Create folder /etc/youman
+				# TODO Store inside .conf files, templates, and other stuff needed
+				;;
+			*)
+				echo "Introduced action not valid!"
+				echo
+				possibleActions
+				;;
+		esac
+	fi
 fi
+# TODO Check if it's installed. (youman exists in /bin/ )
+
