@@ -5,7 +5,7 @@ function banner {
 	echo "You, man!"
 	echo "Welcome to a basic bash script to improve your workflow in web development."
 	echo 
-	echo "Made by *PERSONAL IDENTITY CRISIS* "
+	echo "Made by Noyss "
 	echo
 	echo "                              ****"
 	echo
@@ -27,18 +27,20 @@ function possibleActions {
 }
 
 banner	# Show intro banner
-
-if [ ! -f /bin/youman ] && [ $1 != "install" ]; then	# Checks if YouMan is already installed
-	echo "YouMan needs to be installed before any action."
-	echo "Run \"youman install\" instead."
-
+if [ $# = 0 ]; then
+	possibleActions
 else
-	if [ $# = 0 ]; then
-		possibleActions
+	if [ ! -f /bin/youman ] && [ $1 != "install" ]; then	# Checks if YouMan is already installed
+		echo "YouMan needs to be installed before any action."
+		echo "Run \"youman install\" instead."
+		echo ${PWD##*/}
 	else
+	
 		case $1 in
-			"init") 
-				possibleActions
+
+			"init") 	# Initializes a new project.
+				echo
+				echo "1) Basic web struct dir. (HTML+CSS+JS)"
 				read -p "Option: " option 	# Prompts for user selection
 
 				case $option in
@@ -49,11 +51,50 @@ else
 					*)	echo "Not implemented yet."
 						;;
 				esac
+
+				echo
+				echo "Add Compass compatibility? (Y, n) "
+				read -p "Option: " compass 	# Prompts for user selection
+				if [ compass = "Y"] || [ compass = "y" ]; then
+					echo "Initializing Compass..."
+					compass init
+				fi
+				
+				echo "Init Git repository? (Y, n) "
+				read -p "Option: " git 	# Prompts for user selection
+				if [ git = "Y"] || [ git = "y" ]; then
+					echo "Initializing Git repository..."
+					git init
+				fi
+
+				echo "Create Sublime project? (Y, n) "
+				read -p "Option: " sublimeProject 	# Prompts for user selection
+				if [ git = "Y"] || [ git = "y" ]; then
+					echo "Setting Sublime project file..."
+					echo "{
+									\"folders\":
+									[
+										{
+											\"path\": \"`pwd`\"
+										}
+									]
+								}" > ${PWD##*/} + ".sublime-project"
+				fi
+				
 				;;
 
-			"install")
-				echo "Install feature selected"
 
+
+			"install")
+				echo "Install feature selected."
+				echo
+				echo "Copying youman's folder into /path/"
+				$bin = 'dirname' $0
+				echo $path
+				# cp ../$path/ /bin/ -R
+
+
+				mkdir /bin/youman/
 				# TODO Copy itself to /bin/
 				# TODO Create folder /etc/youman
 				# TODO Store inside .conf files, templates, and other stuff needed
@@ -66,5 +107,4 @@ else
 		esac
 	fi
 fi
-# TODO Check if it's installed. (youman exists in /bin/ )
 
